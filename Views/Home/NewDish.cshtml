@@ -1,9 +1,29 @@
+@model MyModel
+
 <h2>Add a new dish</h2>
 <a href="/">Home</a>
-<select>
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-</select>
+<form asp-action="createDish" asp-controller="Home" method="post">
+    <span asp-validation-for="chefName"></span>
+    <label asp-for="chefName"></label>
+    <input asp-for="chefName"><br>
+    <span asp-validation-for="dishName"></span>
+    <label asp-for="dishName"></label>
+    <input asp-for="dishName"><br>
+    <span asp-validation-for="Calories"></span>
+    <label asp-for="Calories"></label>
+    <input asp-for="Calories"><br>
+    <span asp-validation-for="Tastiness"></span>
+    <label asp-for="Tastiness"></label>
+    <select asp-for="Tastiness">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select><br>
+    <span asp-validation-for="Description"></span>
+    <label asp-for="Description"></label>
+    <input asp-for="Description"><br>
+
+    <input value = "Create" type = "submit">
+</form>

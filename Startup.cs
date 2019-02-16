@@ -23,7 +23,7 @@ namespace crudelicious
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string mySqlConnection = "server=localhost;userid=root;password=root;port=3306;database=mydb;Sslode=None";
+            string mySqlConnection = "server=localhost;userid=root;password=root;port=3306;database=crudelicious;SslMode=None";
             services.AddDbContext<crudeliciousContext>(options => options.UseMySql(mySqlConnection));
             services.AddSession();            
             services.AddMvc();

@@ -5,6 +5,9 @@ namespace crudelicious.Models
 {
     public class MyModel
     {
+        [Key]
+        public int MyModelId {get; set;}
+
        [Required]
        [Display(Name = "Chef's Name: ")]
        public string chefName {get; set;}
@@ -14,15 +17,15 @@ namespace crudelicious.Models
         public string dishName {get; set;}
 
         [Required]
-        [Display(Name = "# of Calories")]
+        [Display(Name = "# of Calories:")]
         public int Calories {get; set;}
 
         [Required]
-        [Display(Name = "Tastiness")]
+        [Display(Name = "Tastiness:")]
         public int Tastiness {get; set;}
 
         [Required]
-        [Display(Name = "Description")]
+        [Display(Name = "Description:")]
         public string Description {get; set;}
 
         public DateTime CreatedAt {get; set;}

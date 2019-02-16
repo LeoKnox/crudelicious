@@ -2,3 +2,9 @@
 <p>Checkout some current dishes</p>
 
 <a href="/addDish">Add a Dish</a>
+
+    @{
+        foreach(var num in @Model) {
+            <p><a href="/Single/@num.MyModelId" >@num.dishName</a> by @num.chefName</p>
+        }
+    }

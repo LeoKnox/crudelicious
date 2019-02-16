@@ -1,4 +1,10 @@
 <a href="/">Home</a>
 
-<a href="/delete">Delete</a>
-<a href="/edit">Edit</a>
+<h2>@Model.dishName</h2>
+<p>@Model.chefName</p><br>
+<p>@Model.Description</p>
+<p>Calories: @Model.Calories</p>
+<p>@Model.Tastiness stars!</p>
+
+<a href="/Delete/@Model.MyModelId">Delete</a>
+<a href="/edit/@Model.MyModelId">Edit</a>

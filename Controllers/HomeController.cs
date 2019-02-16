@@ -16,14 +16,15 @@ namespace crudelicious.Controllers
         private crudeliciousContext dbContext;
         public HomeController(crudeliciousContext context)
         {
-            dbContext =context;
+            dbContext = context;
         }
 
         [Route("")]
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            List<MyModel> AllCruds = dbContext.mymodels.ToList();
+            return View("Index", AllCruds);
         }
 
         [Route("addDish")]
@@ -33,18 +34,67 @@ namespace crudelicious.Controllers
             return View();
         }
 
-        [Route("Single")]
-        [HttpGet]
-        public IActionResult showOne()
+        [Route("pushDish")]
+        [HttpPost]
+        public IActionResult createDish(MyModel newItem)
         {
-            return View();
+            if (ModelState.IsValid) {
+                dbContext.Add(newItem);
+                dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("NewDish");
+            }
         }
 
-        [Route("Edit")]
+        [Route("Single/{dishId}")]
         [HttpGet]
-        public IActionResult editDish()
+        public IActionResult showOne(Int32 dishId)
         {
-            return View();
+            MyModel OneCurd = dbContext.mymodels.Where(mmod => mmod.MyModelId == dishId).FirstOrDefault();
+            return View("Single", OneCurd);
+        }
+
+        [Route("Edit/{updateId}")]
+        [HttpGet]
+        public IActionResult editDish(Int32 updateId)
+        {
+            MyModel OneUpdate = dbContext.mymodels.Where(mmod => mmod.MyModelId == updateId).FirstOrDefault();
+            return View("Edit", OneUpdate);
+        }
+
+        [Route("updateDish")]
+        [HttpPost]
+        public IActionResult upDish(MyModel uDish)
+        {
+            if (ModelState.IsValid) {
+                MyModel RetDish = dbContext.mymodels.FirstOrDefault(uMod => uMod.MyModelId == uDish.MyModelId);
+                RetDish.chefName = uDish.chefName;
+                RetDish.dishName = uDish.dishName;
+                RetDish.Calories = uDish.Calories;
+                RetDish.Tastiness = uDish.Tastiness;
+                RetDish.Description = uDish.Description;
+                RetDish.UpdatedAt = DateTime.Now;
+                dbContext.SaveChanges();
+                System.Console.WriteLine("$$$$$$$$" + RetDish.chefName);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("Edit", uDish);
+            }
+        }
+        
+        [Route("Delete/{deleteId}")]
+        [HttpGet]
+        public IActionResult deleteDish(Int32 deleteId)
+        {
+            MyModel delMe = dbContext.mymodels.SingleOrDefault(dish => dish.MyModelId == deleteId);
+            dbContext.mymodels.Remove(delMe);
+            dbContext.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
